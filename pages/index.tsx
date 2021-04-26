@@ -1,9 +1,13 @@
+import LogoBar from '../components/LogoBar'
+import Notice from '../components/Notice'
 import ThemeList from '../components/ThemeList'
 
 export default function Home () {
   return (
-    <div>
+    <>
+      <LogoBar />
+      <Notice />
       <ThemeList />
-    </div>
+    </>
   )
 }

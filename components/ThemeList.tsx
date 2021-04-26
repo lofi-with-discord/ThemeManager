@@ -1,9 +1,11 @@
 import { faYoutube } from '@fortawesome/free-brands-svg-icons'
-import { faEdit } from '@fortawesome/free-solid-svg-icons'
+import { faEdit, faPencilAlt, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-import Link from 'next/link'
+import { useRouter } from 'next/router'
 import useSWR from 'swr'
+import Button from './Button'
+import Container from './Container'
 
 interface ThemeData {
   id: number
@@ -13,17 +15,18 @@ interface ThemeData {
 
 const fetcher = (url) => fetch(url).then((res) => res.json())
 export default function ThemeList () {
+  const router = useRouter()
   const { data, error }: { data?: ThemeData[], error?: any } = useSWR('/api/themes', fetcher)
 
   if (!data) return <div className="py-10 px-4 xl:px-64 lg:px-32 md:px-16 sm:px-8 text-sm">잠시만 기다려 주세요</div>
   if (error) return <div className="py-10 px-4 xl:px-64 lg:px-32 md:px-16 sm:px-8 text-sm">에러발생: {error}</div>
 
   return (
-    <div className="py-10 px-4 xl:px-64 lg:px-32 md:px-16 sm:px-8 text-sm">
-      <h3>현재 적용된 리스트:</h3>
-      <table className="my-3 text-center w-full bg-gray-100 shadow rounded-lg">
+    <Container id="table">
+      <h2 className="border-b-2 border-purple-300 inline-block text-2xl pb-0.5 pl-1 pr-5 mb-5">Theme Manager.</h2>
+      <table className="text-center w-full">
         <thead>
-          <tr className="font-bold">
+          <tr className="font-bold border-gray-300 border-b">
             <th className="p-2">#</th>
             <th className="p-2">테마명</th>
             <th className="p-2">스트림주소</th>
@@ -43,19 +46,34 @@ export default function ThemeList () {
                 </a>
               </td>
               <td>
-                <Link href={'/edit/' + theme.id}>
-                  <div className="p-2 mx-0.5 hover:shadow-none bg-blue-400 rounded shadow text-white cursor-pointer">
-                    <FontAwesomeIcon icon={faEdit}/> 수정
+                <div className="flex">
+                  <div className="flex-auto">
+                    <Button onClick={() => router.push('/edit/' + theme.id)} className="bg-blue-300 text-white">
+                      <FontAwesomeIcon icon={faEdit}/> 수정
+                    </Button>
                   </div>
-                </Link>
+                  <div className="flex-auto">
+                    <Button onClick={() => router.push('/del/' + theme.id)} className="bg-red-300 text-white">
+                      <FontAwesomeIcon icon={faTrash}/> 삭제
+                    </Button>
+                  </div>
+                </div>
               </td>
             </tr>
           ))}
+          <tr>
+            <td colSpan={4}>
+              <div className="flex">
+                <div className="flex-auto">
+                  <Button onClick={() => router.push('/add')} className="mt-3 bg-green-300 text-white">
+                    <FontAwesomeIcon icon={faPencilAlt}/> 추가
+                  </Button>
+                </div>
+              </div>
+            </td>
+          </tr>
         </tbody>
       </table>
-      {/* <div className="mt-3">
-        <Link href="/new"><span className="p-2 hover:shadow-none bg-green-400 rounded shadow text-white cursor-pointer"><FontAwesomeIcon icon={faPlus}/> 추가</span></Link>
-      </div> */}
-    </div>
+    </Container>
   )
 }
