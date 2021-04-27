@@ -6,6 +6,7 @@ import { FormEvent, useState } from 'react'
 import Link from 'next/link'
 import Container from '../components/Container'
 import LogoBar from '../components/LogoBar'
+import Button from '../components/Button'
 
 export default function EditPage () {
   const router = useRouter()
@@ -33,24 +34,26 @@ export default function EditPage () {
     <>
       <LogoBar />
       <Container id="edit">
-        <h1 className="text-lg font-bold">테마 추가</h1>
+        <h2 className="border-b-2 border-purple-300 inline-block text-2xl pb-0.5 pl-1 pr-5 mb-5">테마 추가</h2>
         <form onSubmit={onSubmit}>
           <p>테마 이름:</p>
-          <input onChange={(ev) => setName(ev.target.value)} className="block w-60 px-2 mb-2 border bg-white shadow-sm rounded" type="text"/>
+          <input onChange={(ev) => setName(ev.target.value)} className="block w-60 border bg-white shadow-sm px-2 py-1 mb-3" type="text"/>
 
           <p>테마 주소:</p>
-          <input onChange={(ev) => setUrl(ev.target.value)} className="block w-60 px-2 mb-2 border bg-white shadow-sm rounded" type="text"/>
+          <input onChange={(ev) => setUrl(ev.target.value)} className="block w-60 border bg-white shadow-sm px-2 py-1 mb-3" type="text"/>
 
-          <button type="submit" className="p-2 mx-0.5 hover:shadow-none bg-blue-400 rounded shadow text-white cursor-pointer">
-            <FontAwesomeIcon icon={faPencilAlt}/> 추가
+          <button type="submit">
+            <Button className="bg-green-400 text-white">
+              <FontAwesomeIcon icon={faPencilAlt}/> 추가
+            </Button>
           </button>
 
           <Link href="/">
-            <button className="p-2 mx-0.5 hover:shadow-none bg-gray-400 rounded shadow text-white cursor-pointer">
+            <Button className="bg-gray-300 inline">
               돌아가기
-            </button>
+            </Button>
           </Link>
-          <input onChange={(ev) => setAuth(ev.target.value)} placeholder="관리 암호 입력" className="w-32 px-2 m-2 border bg-white shadow-sm rounded" type="password"/>
+          <input onChange={(ev) => setAuth(ev.target.value)} placeholder="관리 암호 입력" className="w-32 px-2 m-2 border bg-white shadow-sm" type="password"/>
         </form>
       </Container>
     </>

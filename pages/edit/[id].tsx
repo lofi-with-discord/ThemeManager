@@ -7,6 +7,7 @@ import { FormEvent, useState } from 'react'
 import Link from 'next/link'
 import Container from '../../components/Container'
 import LogoBar from '../../components/LogoBar'
+import Button from '../../components/Button'
 
 interface ThemeData {
   id: number
@@ -47,27 +48,29 @@ export default function EditPage () {
     <>
       <LogoBar />
       <Container id="edit">
-        <h1 className="text-lg font-bold">&quot;{data[0].name}&quot; 테마 편집</h1>
+        <h2 className="border-b-2 border-purple-300 inline-block text-2xl pb-0.5 pl-1 pr-5 mb-5">&quot;{data[0].name}&quot; 테마 편집</h2>
         <form onSubmit={onSubmit}>
           <p>고유 번호:</p>
-          <input className="block w-60 px-2 mb-2 border bg-gray-100 shadow-sm rounded" type="text" value={data[0].id} disabled/>
+          <input className="block w-60 px-2 py-1 mb-3 border bg-gray-100 shadow-sm" type="text" value={data[0].id} disabled/>
 
           <p>테마 이름:</p>
-          <input onChange={(ev) => setName(ev.target.value)} className="block w-60 px-2 mb-2 border bg-white shadow-sm rounded" type="text" value={name || data[0].name}/>
+          <input onChange={(ev) => setName(ev.target.value)} className="block w-60 px-2 py-1 mb-3 border bg-white shadow-sm" type="text" value={name || data[0].name}/>
 
           <p>테마 주소:</p>
-          <input onChange={(ev) => setUrl(ev.target.value)} className="block w-60 px-2 mb-2 border bg-white shadow-sm rounded" type="text" value={url || data[0].url}/>
+          <input onChange={(ev) => setUrl(ev.target.value)} className="block w-60 px-2 py-1 mb-3 border bg-white shadow-sm" type="text" value={url || data[0].url}/>
 
-          <button type="submit" className="p-2 mx-0.5 hover:shadow-none bg-blue-400 rounded shadow text-white cursor-pointer">
-            <FontAwesomeIcon icon={faEdit}/> 적용
+          <button type="submit">
+            <Button className="bg-blue-400 text-white">
+              <FontAwesomeIcon icon={faEdit}/> 적용
+            </Button>
           </button>
 
           <Link href="/">
-            <button className="p-2 mx-0.5 hover:shadow-none bg-gray-400 rounded shadow text-white cursor-pointer">
+            <Button className="bg-gray-300 inline">
               돌아가기
-            </button>
+            </Button>
           </Link>
-          <input onChange={(ev) => setAuth(ev.target.value)} placeholder="관리 암호 입력" className="w-32 px-2 m-2 border bg-white shadow-sm rounded" type="password"/>
+          <input onChange={(ev) => setAuth(ev.target.value)} placeholder="관리 암호 입력" className="w-32 px-2 m-2 border bg-white shadow-sm" type="password"/>
         </form>
       </Container>
     </>

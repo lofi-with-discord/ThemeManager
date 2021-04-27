@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react'
 import Link from 'next/link'
+import Button from '../../components/Button'
 
 interface ThemeData {
   id: number
@@ -45,17 +46,19 @@ export default function EditPage () {
     <>
       <LogoBar />
       <Container id="edit">
-        <h1 className="text-lg font-bold">&quot;{data[0].name}&quot;를 삭제할까요?</h1>
+        <h2 className="border-b-2 border-purple-300 inline-block text-2xl pb-0.5 pl-1 pr-5 mb-5">&quot;{data[0].name}&quot;를 삭제할까요?</h2>
 
         <form onSubmit={onSubmit}>
-          <button type="submit" className="p-2 mx-0.5 hover:shadow-none bg-blue-400 rounded shadow text-white cursor-pointer">
-            <FontAwesomeIcon icon={faTrash}/> 적용
+          <button type="submit">
+            <Button className="bg-red-400 text-white">
+              <FontAwesomeIcon icon={faTrash}/> 삭제
+            </Button>
           </button>
 
           <Link href="/">
-            <button className="p-2 mx-0.5 hover:shadow-none bg-gray-400 rounded shadow text-white cursor-pointer">
+            <Button className="bg-gray-300 inline">
               돌아가기
-            </button>
+            </Button>
           </Link>
           <input onChange={(ev) => setAuth(ev.target.value)} placeholder="관리 암호 입력" className="w-32 px-2 m-2 border bg-white shadow-sm rounded" type="password"/>
         </form>
