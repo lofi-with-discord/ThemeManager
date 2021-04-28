@@ -1,14 +1,18 @@
 import Container from '../components/Container'
 import Image from 'next/image'
 import Head from 'next/head'
+import { config, dom } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBroadcastTower } from '@fortawesome/free-solid-svg-icons'
+
+config.autoAddCss = false
 
 export default function LogoBar () {
   return (
     <Container id="logo">
       <Head>
         <title>LofiGirl - 📻 24/7 radio player for discord</title>
+        <style>{dom.css()}</style>
       </Head>
       <div className="flex gap-4">
         <div>
